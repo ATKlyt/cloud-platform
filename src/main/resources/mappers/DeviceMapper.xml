@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.cat.platform.dao.DeviceMapper">
+    <resultMap id="BaseResultMap" type="cn.cat.platform.model.DO.Device">
+        <id column="device_id" jdbcType="INTEGER" property="deviceId"/>
+        <result column="user_id" jdbcType="INTEGER" property="userId"/>
+        <result column="device_number" jdbcType="VARCHAR" property="deviceNumber"/>
+        <result column="device_name" jdbcType="VARCHAR" property="deviceName"/>
+        <result column="message" jdbcType="VARCHAR" property="message"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        <!--@mbg.generated-->
+        device_id, user_id, device_number, device_name, message
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        <!--@mbg.generated-->
+        select
+        <include refid="Base_Column_List"/>
+        from t_device
+        where device_id = #{deviceId,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        <!--@mbg.generated-->
+        delete from t_device
+        where device_id = #{deviceId,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" keyColumn="device_id" keyProperty="deviceId" parameterType="cn.cat.platform.model.DO.Device"
+            useGeneratedKeys="true">
+        <!--@mbg.generated-->
+        insert into t_device (user_id, device_number, device_name,
+        message)
+        values (#{userId,jdbcType=INTEGER}, #{deviceNumber,jdbcType=VARCHAR}, #{deviceName,jdbcType=VARCHAR},
+        #{message,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertSelective" keyColumn="device_id" keyProperty="deviceId"
+            parameterType="cn.cat.platform.model.DO.Device" useGeneratedKeys="true">
+        <!--@mbg.generated-->
+        insert into t_device
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="deviceNumber != null">
+                device_number,
+            </if>
+            <if test="deviceName != null">
+                device_name,
+            </if>
+            <if test="message != null">
+                message,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="deviceNumber != null">
+                #{deviceNumber,jdbcType=INTEGER},
+            </if>
+            <if test="deviceName != null">
+                #{deviceName,jdbcType=VARCHAR},
+            </if>
+            <if test="message != null">
+                #{message,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="cn.cat.platform.model.DO.Device">
+        <!--@mbg.generated-->
+        update t_device
+        <set>
+            <if test="userId != null">
+                user_id = #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="deviceNumber != null">
+                device_number = #{deviceNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="deviceName != null">
+                device_name = #{deviceName,jdbcType=VARCHAR},
+            </if>
+            <if test="message != null">
+                message = #{message,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where device_id = #{deviceId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="cn.cat.platform.model.DO.Device">
+        <!--@mbg.generated-->
+        update t_device
+        set user_id = #{userId,jdbcType=INTEGER},
+        device_number = #{deviceNumber,jdbcType=VARCHAR},
+        device_name = #{deviceName,jdbcType=VARCHAR},
+        message = #{message,jdbcType=VARCHAR}
+        where device_id = #{deviceId,jdbcType=INTEGER}
+    </update>
+
+    <select id="findByDeviceNumberAndDeviceNameAndUserId" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_device
+        where
+        device_number like concat('%', #{deviceNumber,jdbcType=VARCHAR}, '%')
+        and device_name like concat('%', #{deviceName,jdbcType=VARCHAR}, '%')
+        and user_id=#{userId,jdbcType=INTEGER}
+    </select>
+
+    <select id="findByDeviceNumber" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"/>
+        from t_device
+        where device_number=#{deviceNumber,jdbcType=VARCHAR}
+    </select>
+</mapper>

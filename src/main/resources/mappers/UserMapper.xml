@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.cat.platform.dao.UserMapper">
+    <resultMap id="BaseResultMap" type="cn.cat.platform.model.DO.User">
+        <!--@mbg.generated-->
+        <!--@Table t_user-->
+        <id column="user_id" jdbcType="INTEGER" property="userId"/>
+        <result column="user_number" jdbcType="VARCHAR" property="userNumber"/>
+        <result column="username" jdbcType="VARCHAR" property="username"/>
+        <result column="password" jdbcType="VARCHAR" property="password"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="contact_person" jdbcType="VARCHAR" property="contactPerson"/>
+        <result column="contact_info" jdbcType="VARCHAR" property="contactInfo"/>
+        <result column="message" jdbcType="VARCHAR" property="message"/>
+        <result column="address" jdbcType="VARCHAR" property="address"/>
+        <result column="reserved_info" jdbcType="VARCHAR" property="reservedInfo"/>
+    </resultMap>
+
+    <resultMap id="UserBOResultMap" type="cn.cat.platform.model.BO.UserBO">
+        <id column="user_id" jdbcType="INTEGER" property="userId"/>
+        <result column="user_number" jdbcType="VARCHAR" property="userNumber"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="contact_person" jdbcType="VARCHAR" property="contactPerson"/>
+        <result column="contact_info" jdbcType="VARCHAR" property="contactInfo"/>
+        <result column="message" jdbcType="VARCHAR" property="message"/>
+        <result column="address" jdbcType="VARCHAR" property="address"/>
+        <result column="reserved_info" jdbcType="VARCHAR" property="reservedInfo"/>
+        <result column="role_name" jdbcType="VARCHAR" property="roleName"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        <!--@mbg.generated-->
+        user_id, user_number, username, `password`, `name`, contact_person, contact_info,
+        message, address, reserved_info
+    </sql>
+
+
+    <select id="findByUsername" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_user
+        where username = #{username,jdbcType=VARCHAR}
+    </select>
+
+    <select id="findUserIdAndNameByRoleName" resultMap="BaseResultMap">
+        select t_user.user_id, t_user.name
+        from t_user,
+             t_role,
+             t_user_role
+        where t_user.user_id = t_user_role.user_id
+          and t_role.role_id = t_user_role.role_id
+          and t_role.role_name = #{roleName,jdbcType=VARCHAR}
+    </select>
+    <select id="findUserIdByRoleName" resultType="java.lang.Integer">
+        select t_user.user_id
+        from t_user,
+             t_role,
+             t_user_role
+        where t_user.user_id = t_user_role.user_id
+          and t_role.role_id = t_user_role.role_id
+          and t_role.role_name = #{roleName,jdbcType=VARCHAR}
+    </select>
+
+
+    <select id="adminFindUserVO" resultMap="UserBOResultMap">
+        select t_user.user_id,
+               t_user.user_number,
+               t_user.name,
+               t_user.contact_info,
+               t_user.contact_person,
+               t_user.message,
+               t_user.address,
+               t_user.reserved_info,
+               t_role.role_name
+        from t_user,
+             t_role,
+             t_user_role
+        where t_user.user_id = t_user_role.user_id
+          and t_role.role_id = t_user_role.role_id
+          and t_role.role_id != 1
+          and t_role.role_name like concat("%", #{roleName,jdbcType=VARCHAR}, "%")
+          and t_user.name like concat("%", #{userName,jdbcType=VARCHAR}, "%")
+          and t_user.user_number like concat("%", #{userNumber,jdbcType=VARCHAR}, "%")
+    </select>
+
+    <select id="findUserVOBySuperiorUserId" resultMap="UserBOResultMap">
+        select t_user.user_id,
+               t_user.user_number,
+               t_user.name,
+               t_user.contact_info,
+               t_user.contact_person,
+               t_user.message,
+               t_user.address,
+               t_user.reserved_info,
+               t_role.role_name
+        from t_user,
+             t_role,
+             t_user_role,
+             t_user_management
+        where t_user.user_id = t_user_role.user_id
+          and t_role.role_id = t_user_role.role_id
+          and t_role.role_name like concat("%", #{roleName,jdbcType=VARCHAR}, "%")
+          and t_user.name like concat("%", #{userName,jdbcType=VARCHAR}, "%")
+          and t_user.user_number like concat("%", #{userNumber,jdbcType=VARCHAR}, "%")
+          and t_user_management.superior_user_id = #{loginUserId,jdbcType=INTEGER}
+          and t_user_management.user_id = t_user.user_id
+    </select>
+
+
+    <select id="selectByUserId" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_user
+        where user_id = #{userId,jdbcType=INTEGER}
+    </select>
+
+    <update id="updatePasswordByUserId">
+        update t_user
+        set `password`=#{newPassword,jdbcType=VARCHAR}
+        where user_id = #{userId,jdbcType=INTEGER};
+    </update>
+
+    <update id="updateByUserId">
+        update t_user
+        <set>
+            <if test="user.userNumber != null">
+                user_number = #{user.userNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="user.username != null">
+                username = #{user.username,jdbcType=VARCHAR},
+            </if>
+            <if test="user.name != null">
+                name = #{user.name,jdbcType=VARCHAR},
+            </if>
+            <if test="user.contactInfo != null">
+                contact_info = #{user.contactInfo,jdbcType=VARCHAR},
+            </if>
+            <if test="user.contactPerson != null">
+                contact_person = #{user.contactPerson,jdbcType=VARCHAR},
+            </if>
+            <if test="user.message != null">
+                message = #{user.message,jdbcType=VARCHAR},
+            </if>
+            <if test="user.address != null">
+                address = #{user.address,jdbcType=VARCHAR},
+            </if>
+            <if test="user.reservedInfo != null">
+                reserved_info = #{user.reservedInfo,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where user_id = #{user.userId,jdbcType=INTEGER}
+    </update>
+
+    <select id="findUserIdAndNameByUserId" resultMap="BaseResultMap">
+        select user_id, `name`
+        from t_user
+        where user_id = #{userId,jdbcType=INTEGER}
+    </select>
+
+    <select id="selectPasswordByUserId" resultType="java.lang.String">
+        select `password`
+        from t_user
+        where user_id = #{userId,jdbcType=INTEGER}
+    </select>
+
+    <insert id="insertSelective" keyColumn="user_id" keyProperty="userId" parameterType="cn.cat.platform.model.DO.User"
+            useGeneratedKeys="true">
+        INSERT INTO t_user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="userNumber != null">
+                user_number,
+            </if>
+            <if test="username != null">
+                username,
+            </if>
+            <if test="password != null">
+                password,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="contactPerson != null">
+                contact_person,
+            </if>
+            <if test="contactInfo != null">
+                contact_info,
+            </if>
+            <if test="message != null">
+                message,
+            </if>
+            <if test="address != null">
+                address,
+            </if>
+            <if test="reservedInfo != null">
+                reserved_info
+            </if>
+        </trim>
+        VALUES
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="userNumber != null">
+                #{userNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="username != null">
+                #{username,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null">
+                #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="contactPerson != null">
+                #{contactPerson,jdbcType=VARCHAR},
+            </if>
+            <if test="contactInfo != null">
+                #{contactInfo,jdbcType=VARCHAR},
+            </if>
+            <if test="message != null">
+                #{message,jdbcType=VARCHAR},
+            </if>
+            <if test="address != null">
+                #{address,jdbcType=VARCHAR},
+            </if>
+            <if test="reservedInfo != null">
+                #{reservedInfo,jdbcType=VARCHAR}
+            </if>
+        </trim>
+    </insert>
+</mapper>

@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.cat.platform.dao.DeviceDataMapper">
+    <resultMap id="BaseResultMap" type="cn.cat.platform.model.DO.DeviceData">
+        <!--@mbg.generated-->
+        <!--@Table t_device_data-->
+        <id column="data_id" jdbcType="INTEGER" property="dataId"/>
+        <result column="device_id" jdbcType="INTEGER" property="deviceId"/>
+        <result column="group_id" jdbcType="VARCHAR" property="groupId"/>
+        <result column="date" jdbcType="DATE" property="date"/>
+        <result column="time" jdbcType="TIME" property="time"/>
+        <result column="result_judgment" jdbcType="VARCHAR" property="resultJudgment"/>
+        <result column="data_item_1" jdbcType="VARCHAR" property="dataItem1"/>
+        <result column="data_item_1_unit" jdbcType="VARCHAR" property="dataItem1Unit"/>
+        <result column="data_item_2" jdbcType="VARCHAR" property="dataItem2"/>
+        <result column="data_item_2_unit" jdbcType="VARCHAR" property="dataItem2Unit"/>
+        <result column="data_item_3" jdbcType="VARCHAR" property="dataItem3"/>
+        <result column="data_item_3_unit" jdbcType="VARCHAR" property="dataItem3Unit"/>
+        <result column="test_mode" jdbcType="VARCHAR" property="testMode"/>
+        <result column="run_number" jdbcType="VARCHAR" property="runNumber"/>
+        <result column="tested_bar_code" jdbcType="VARCHAR" property="testedBarCode"/>
+        <result column="beat_output" jdbcType="VARCHAR" property="beatOutput"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--@mbg.generated-->
+        data_id, device_id, group_id, `date`, `time`, result_judgment, data_item_1, data_item_1_unit,
+        data_item_2, data_item_2_unit, data_item_3, data_item_3_unit, test_mode, run_number,
+        tested_bar_code, beat_output
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        <!--@mbg.generated-->
+        select
+        <include refid="Base_Column_List"/>
+        from t_device_data
+        where data_id = #{dataId,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        <!--@mbg.generated-->
+        delete from t_device_data
+        where data_id = #{dataId,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" keyColumn="data_id" keyProperty="dataId" parameterType="cn.cat.platform.model.DO.DeviceData"
+            useGeneratedKeys="true">
+        <!--@mbg.generated-->
+        insert into t_device_data (device_id, group_id, `date`,
+        `time`, result_judgment, data_item_1,
+        data_item_1_unit, data_item_2, data_item_2_unit,
+        data_item_3, data_item_3_unit, test_mode,
+        run_number, tested_bar_code, beat_output
+        )
+        values (#{deviceId,jdbcType=INTEGER}, #{groupId,jdbcType=VARCHAR}, #{date,jdbcType=DATE},
+        #{time,jdbcType=TIME}, #{resultJudgment,jdbcType=VARCHAR}, #{dataItem1,jdbcType=VARCHAR},
+        #{dataItem1Unit,jdbcType=VARCHAR}, #{dataItem2,jdbcType=VARCHAR}, #{dataItem2Unit,jdbcType=VARCHAR},
+        #{dataItem3,jdbcType=VARCHAR}, #{dataItem3Unit,jdbcType=VARCHAR}, #{testMode,jdbcType=VARCHAR},
+        #{runNumber,jdbcType=VARCHAR}, #{testedBarCode,jdbcType=VARCHAR}, #{beatOutput,jdbcType=VARCHAR}
+        )
+    </insert>
+    <insert id="insertSelective" keyColumn="data_id" keyProperty="dataId"
+            parameterType="cn.cat.platform.model.DO.DeviceData" useGeneratedKeys="true">
+        <!--@mbg.generated-->
+        insert into t_device_data
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="deviceId != null">
+                device_id,
+            </if>
+            <if test="groupId != null">
+                group_id,
+            </if>
+            <if test="date != null">
+                `date`,
+            </if>
+            <if test="time != null">
+                `time`,
+            </if>
+            <if test="resultJudgment != null">
+                result_judgment,
+            </if>
+            <if test="dataItem1 != null">
+                data_item_1,
+            </if>
+            <if test="dataItem1Unit != null">
+                data_item_1_unit,
+            </if>
+            <if test="dataItem2 != null">
+                data_item_2,
+            </if>
+            <if test="dataItem2Unit != null">
+                data_item_2_unit,
+            </if>
+            <if test="dataItem3 != null">
+                data_item_3,
+            </if>
+            <if test="dataItem3Unit != null">
+                data_item_3_unit,
+            </if>
+            <if test="testMode != null">
+                test_mode,
+            </if>
+            <if test="runNumber != null">
+                run_number,
+            </if>
+            <if test="testedBarCode != null">
+                tested_bar_code,
+            </if>
+            <if test="beatOutput != null">
+                beat_output,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="deviceId != null">
+                #{deviceId,jdbcType=INTEGER},
+            </if>
+            <if test="groupId != null">
+                #{groupId,jdbcType=VARCHAR},
+            </if>
+            <if test="date != null">
+                #{date,jdbcType=DATE},
+            </if>
+            <if test="time != null">
+                #{time,jdbcType=TIME},
+            </if>
+            <if test="resultJudgment != null">
+                #{resultJudgment,jdbcType=VARCHAR},
+            </if>
+            <if test="dataItem1 != null">
+                #{dataItem1,jdbcType=VARCHAR},
+            </if>
+            <if test="dataItem1Unit != null">
+                #{dataItem1Unit,jdbcType=VARCHAR},
+            </if>
+            <if test="dataItem2 != null">
+                #{dataItem2,jdbcType=VARCHAR},
+            </if>
+            <if test="dataItem2Unit != null">
+                #{dataItem2Unit,jdbcType=VARCHAR},
+            </if>
+            <if test="dataItem3 != null">
+                #{dataItem3,jdbcType=VARCHAR},
+            </if>
+            <if test="dataItem3Unit != null">
+                #{dataItem3Unit,jdbcType=VARCHAR},
+            </if>
+            <if test="testMode != null">
+                #{testMode,jdbcType=VARCHAR},
+            </if>
+            <if test="runNumber != null">
+                #{runNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="testedBarCode != null">
+                #{testedBarCode,jdbcType=VARCHAR},
+            </if>
+            <if test="beatOutput != null">
+                #{beatOutput,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="cn.cat.platform.model.DO.DeviceData">
+        <!--@mbg.generated-->
+        update t_device_data
+        <set>
+            <if test="deviceId != null">
+                device_id = #{deviceId,jdbcType=INTEGER},
+            </if>
+            <if test="groupId != null">
+                group_id = #{groupId,jdbcType=VARCHAR},
+            </if>
+            <if test="date != null">
+                `date` = #{date,jdbcType=DATE},
+            </if>
+            <if test="time != null">
+                `time` = #{time,jdbcType=TIME},
+            </if>
+            <if test="resultJudgment != null">
+                result_judgment = #{resultJudgment,jdbcType=VARCHAR},
+            </if>
+            <if test="dataItem1 != null">
+                data_item_1 = #{dataItem1,jdbcType=VARCHAR},
+            </if>
+            <if test="dataItem1Unit != null">
+                data_item_1_unit = #{dataItem1Unit,jdbcType=VARCHAR},
+            </if>
+            <if test="dataItem2 != null">
+                data_item_2 = #{dataItem2,jdbcType=VARCHAR},
+            </if>
+            <if test="dataItem2Unit != null">
+                data_item_2_unit = #{dataItem2Unit,jdbcType=VARCHAR},
+            </if>
+            <if test="dataItem3 != null">
+                data_item_3 = #{dataItem3,jdbcType=VARCHAR},
+            </if>
+            <if test="dataItem3Unit != null">
+                data_item_3_unit = #{dataItem3Unit,jdbcType=VARCHAR},
+            </if>
+            <if test="testMode != null">
+                test_mode = #{testMode,jdbcType=VARCHAR},
+            </if>
+            <if test="runNumber != null">
+                run_number = #{runNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="testedBarCode != null">
+                tested_bar_code = #{testedBarCode,jdbcType=VARCHAR},
+            </if>
+            <if test="beatOutput != null">
+                beat_output = #{beatOutput,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where data_id = #{dataId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="cn.cat.platform.model.DO.DeviceData">
+        <!--@mbg.generated-->
+        update t_device_data
+        set device_id = #{deviceId,jdbcType=INTEGER},
+        group_id = #{groupId,jdbcType=VARCHAR},
+        `date` = #{date,jdbcType=DATE},
+        `time` = #{time,jdbcType=TIME},
+        result_judgment = #{resultJudgment,jdbcType=VARCHAR},
+        data_item_1 = #{dataItem1,jdbcType=VARCHAR},
+        data_item_1_unit = #{dataItem1Unit,jdbcType=VARCHAR},
+        data_item_2 = #{dataItem2,jdbcType=VARCHAR},
+        data_item_2_unit = #{dataItem2Unit,jdbcType=VARCHAR},
+        data_item_3 = #{dataItem3,jdbcType=VARCHAR},
+        data_item_3_unit = #{dataItem3Unit,jdbcType=VARCHAR},
+        test_mode = #{testMode,jdbcType=VARCHAR},
+        run_number = #{runNumber,jdbcType=VARCHAR},
+        tested_bar_code = #{testedBarCode,jdbcType=VARCHAR},
+        beat_output = #{beatOutput,jdbcType=VARCHAR}
+        where data_id = #{dataId,jdbcType=INTEGER}
+    </update>
+
+
+    <delete id="deleteByDeviceId" parameterType="java.lang.Integer">
+      delete from t_device_data
+      where device_id = #{deviceId,jdbcType=INTEGER}
+    </delete>
+
+
+
+    <select id="findByDeviceId" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_device_data
+        where device_id=#{deviceId,jdbcType=INTEGER}
+    </select>
+
+    <select id="selectByDeviceIdAndResultJudgmentAndTestedBarCode" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_device_data
+        where device_id=#{deviceId,jdbcType=INTEGER} and result_judgment=#{resultJudgment,jdbcType=VARCHAR}
+        and tested_bar_code like concat("%", #{testedBarCode,jdbcType=VARCHAR}, "%")
+    </select>
+
+    <select id="selectByDeviceIdAndTestModeAndResultJudgmentAndTestedBarCode" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_device_data
+        where device_id=#{deviceId,jdbcType=INTEGER} and test_mode=#{testMode,jdbcType=VARCHAR} and
+        result_judgment=#{resultJudgment,jdbcType=VARCHAR}
+        and tested_bar_code like concat("%", #{testedBarCode,jdbcType=VARCHAR}, "%")
+    </select>
+
+    <select id="selectByDeviceIdAndTestedBarCode" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_device_data
+        where device_id=#{deviceId,jdbcType=INTEGER} and tested_bar_code like concat("%", #{testedBarCode,jdbcType=VARCHAR}, "%")
+    </select>
+
+    <select id="selectByDeviceIdAndTestModeAndTestedBarCode" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_device_data
+        where device_id=#{deviceId,jdbcType=INTEGER} and test_mode=#{testMode,jdbcType=VARCHAR}
+        and tested_bar_code like concat("%", #{testedBarCode,jdbcType=VARCHAR}, "%")
+    </select>
+</mapper>

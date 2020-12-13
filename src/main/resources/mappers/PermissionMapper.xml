@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.cat.platform.dao.PermissionMapper">
+    <resultMap id="BaseResultMap" type="cn.cat.platform.model.DO.Permission">
+        <!--@mbg.generated-->
+        <!--@Table t_permission-->
+        <id column="permission_id" jdbcType="INTEGER" property="permissionId"/>
+        <result column="permission_code" jdbcType="VARCHAR" property="permissionCode"/>
+        <result column="permission_description" jdbcType="VARCHAR" property="permissionDescription"/>
+        <result column="permission_url" jdbcType="VARCHAR" property="permissionUrl"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--@mbg.generated-->
+        permission_id, permission_code, permission_description, permission_url
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        <!--@mbg.generated-->
+        select
+        <include refid="Base_Column_List"/>
+        from t_permission
+        where permission_id = #{permissionId,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        <!--@mbg.generated-->
+        delete from t_permission
+        where permission_id = #{permissionId,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" keyColumn="permission_id" keyProperty="permissionId"
+            parameterType="cn.cat.platform.model.DO.Permission" useGeneratedKeys="true">
+        <!--@mbg.generated-->
+        insert into t_permission (permission_code, permission_description,
+        permission_url)
+        values (#{permissionCode,jdbcType=VARCHAR}, #{permissionDescription,jdbcType=VARCHAR},
+        #{permissionUrl,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertSelective" keyColumn="permission_id" keyProperty="permissionId"
+            parameterType="cn.cat.platform.model.DO.Permission" useGeneratedKeys="true">
+        <!--@mbg.generated-->
+        insert into t_permission
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="permissionCode != null">
+                permission_code,
+            </if>
+            <if test="permissionDescription != null">
+                permission_description,
+            </if>
+            <if test="permissionUrl != null">
+                permission_url,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="permissionCode != null">
+                #{permissionCode,jdbcType=VARCHAR},
+            </if>
+            <if test="permissionDescription != null">
+                #{permissionDescription,jdbcType=VARCHAR},
+            </if>
+            <if test="permissionUrl != null">
+                #{permissionUrl,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="cn.cat.platform.model.DO.Permission">
+        <!--@mbg.generated-->
+        update t_permission
+        <set>
+            <if test="permissionCode != null">
+                permission_code = #{permissionCode,jdbcType=VARCHAR},
+            </if>
+            <if test="permissionDescription != null">
+                permission_description = #{permissionDescription,jdbcType=VARCHAR},
+            </if>
+            <if test="permissionUrl != null">
+                permission_url = #{permissionUrl,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where permission_id = #{permissionId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="cn.cat.platform.model.DO.Permission">
+        <!--@mbg.generated-->
+        update t_permission
+        set permission_code = #{permissionCode,jdbcType=VARCHAR},
+        permission_description = #{permissionDescription,jdbcType=VARCHAR},
+        permission_url = #{permissionUrl,jdbcType=VARCHAR}
+        where permission_id = #{permissionId,jdbcType=INTEGER}
+    </update>
+    <select id="findPermissionByUserId" resultMap="BaseResultMap">
+          SELECT
+              *
+          FROM
+              t_permission
+          WHERE
+              permission_id IN (
+              SELECT
+                  permission_id
+              FROM
+                  t_role_permission
+              WHERE
+              role_id IN ( SELECT role_id FROM t_user_role WHERE user_id = #{userId,jdbcType=INTEGER} )
+              )
+    </select>
+
+    <select id="findByPermissionUrl" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_permission
+        where permission_url=#{permissionUrl,jdbcType=VARCHAR}
+    </select>
+</mapper>

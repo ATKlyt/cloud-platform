@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.cat.platform.dao.UserManagementMapper">
+  <resultMap id="BaseResultMap" type="cn.cat.platform.model.DO.UserManagement">
+    <!--@mbg.generated-->
+    <!--@Table t_user_management-->
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="superior_user_id" jdbcType="INTEGER" property="superiorUserId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    user_id, superior_user_id
+  </sql>
+  <insert id="insert" parameterType="cn.cat.platform.model.DO.UserManagement">
+    <!--@mbg.generated-->
+    insert into t_user_management (user_id, superior_user_id)
+    values (#{userId,jdbcType=INTEGER}, #{superiorUserId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.cat.platform.model.DO.UserManagement">
+    <!--@mbg.generated-->
+    insert into t_user_management
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="superiorUserId != null">
+        superior_user_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="superiorUserId != null">
+        #{superiorUserId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+
+  <select id="selectByUserId" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_user_management
+        where user_id=#{userId,jdbcType=INTEGER}
+    </select>
+</mapper>

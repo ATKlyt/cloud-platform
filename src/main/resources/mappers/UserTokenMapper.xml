@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.cat.platform.dao.UserTokenMapper">
+  <resultMap id="BaseResultMap" type="cn.cat.platform.model.DO.UserToken">
+    <!--@mbg.generated-->
+    <!--@Table t_user_token-->
+    <id column="token_id" jdbcType="INTEGER" property="tokenId" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="token" jdbcType="VARCHAR" property="token" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    token_id, user_id, token
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from t_user_token
+    where token_id = #{tokenId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <!--@mbg.generated-->
+    delete from t_user_token
+    where token_id = #{tokenId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="token_id" keyProperty="tokenId" parameterType="cn.cat.platform.model.DO.UserToken" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into t_user_token (user_id, token)
+    values (#{userId,jdbcType=INTEGER}, #{token,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="token_id" keyProperty="tokenId" parameterType="cn.cat.platform.model.DO.UserToken" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into t_user_token
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="token != null">
+        token,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="token != null">
+        #{token,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.cat.platform.model.DO.UserToken">
+    <!--@mbg.generated-->
+    update t_user_token
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="token != null">
+        token = #{token,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where token_id = #{tokenId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.cat.platform.model.DO.UserToken">
+    <!--@mbg.generated-->
+    update t_user_token
+    set user_id = #{userId,jdbcType=INTEGER},
+      token = #{token,jdbcType=VARCHAR}
+    where token_id = #{tokenId,jdbcType=INTEGER}
+  </update>
+
+  <update id="updateByUserId">
+    update
+        t_user_token
+    set
+        token = #{token,jdbcType=VARCHAR}
+    where
+        user_id=#{userId,jdbcType=INTEGER}
+  </update>
+
+  <select id="findByUserId" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_user_token
+    where user_id=#{userId,jdbcType=INTEGER}
+  </select>
+
+  <select id="findByToken" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_user_token
+    where token=#{token,jdbcType=VARCHAR}
+  </select>
+
+  <delete id="deleteByUserId">
+        delete from t_user_token
+        where user_id=#{userId,jdbcType=INTEGER}
+    </delete>
+</mapper>
