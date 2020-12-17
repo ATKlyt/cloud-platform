@@ -12,8 +12,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.MultipartConfigFactory;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import javax.servlet.MultipartConfigElement;
 
@@ -31,7 +29,6 @@ public class Application implements CommandLineRunner {
 
     /**
      *文件上传时使用相对路径报错，修改MultiPartFile的location
-     * @return
      */
     @Bean
     MultipartConfigElement multipartConfigElement() {

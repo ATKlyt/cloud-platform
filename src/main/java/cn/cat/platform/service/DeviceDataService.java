@@ -32,7 +32,6 @@ public interface DeviceDataService {
      * @param pn       页数
      * @param deviceId 设备ID
      * @param testMode 测试模式
-     * @param groupId  分组
      * @return
      */
     Map<String, Object> findDeviceData(Integer pn, Integer deviceId, String testMode, String resultJudgment, String testedBarCode);

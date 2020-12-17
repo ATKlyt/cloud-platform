@@ -218,6 +218,8 @@ public class DeviceDataServiceImpl implements DeviceDataService {
 
             String runNumber = fields[index++];
             deviceData.setRunNumber(runNumber);
+            deviceData.setBeatOutput("");
+            deviceData.setTestedBarCode("");
             for (int i = 0; i < 2; i++) {
                 if (fields.length > index) {
                     String field = fields[index++];
