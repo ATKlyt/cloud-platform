@@ -35,4 +35,13 @@ public interface UserMapper {
     User findUserIdAndNameByUserId(@Param("userId") Integer userId);
 
     String selectPasswordByUserId(@Param("userId") Integer userId);
+
+    User selectUserByUserNumber(String userNumber);
+
+    int deleteUserByUserNumber(String userNumber);
+
+    List<User> selectNotSuperior();
+
+
+
 }

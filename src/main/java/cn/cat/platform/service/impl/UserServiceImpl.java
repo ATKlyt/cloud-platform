@@ -72,7 +72,9 @@ public class UserServiceImpl implements UserService {
         for (UserBO userBO : userBOS) {
             UserVO userVO = new UserVO();
             BeanUtils.copyProperties(userBO, userVO);
+            //根据Uid生成token
             UserToken userToken = userTokenMapper.findByUserId(userVO.getUserId());
+
             userVO.setOnlineStatus(getOnlineStatus(userToken));
             String reservedInfoStr = userBO.getReservedInfo();
             if (reservedInfoStr != null) {
@@ -89,6 +91,7 @@ public class UserServiceImpl implements UserService {
     }
 
     private String getOnlineStatus(UserToken userToken) {
+        //根据token判断登录状态是否过期(是否在线)
         String onlineStatus;
         if (userToken == null) {
             // 没有token
@@ -110,6 +113,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean checkUserByUsername(String username) {
         User user = userMapper.findByUsername(username);
+        return user != null;
+    }
+
+    @Override
+    public boolean checkUserNumber(String userNumber) {
+        User user = userMapper.selectUserByUserNumber(userNumber);
         return user != null;
     }
 
@@ -174,6 +183,19 @@ public class UserServiceImpl implements UserService {
         }
 
     }
+
+    @Override
+    public int deleteUserByUserNumber(String userNumber){
+        return userMapper.deleteUserByUserNumber(userNumber);
+    }
+
+    @Override
+    public List<User> selectNotSuperior(){
+        List<User> users = userMapper.selectNotSuperior();
+        return users;
+    }
+
+
 }
 
 

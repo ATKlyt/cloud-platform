@@ -45,6 +45,7 @@ public enum ResultCode {
     TOKEN_INVALID(10025, "token无效"),
     LOGIN_USERNAME_IS_NULL(10026, "用户名为空"),
     USERNAME_IS_EXIST(10027, "登录账号已存在"),
+    USERNUMBER_IS_EXIT(10035,"用户编号已存在"),
     PARSE_TIME_ERROR(10028, "转换异常：时间格式不正确"),
     PARSE_DATA_ERROR(10029, "转换异常：日期格式不正确"),
     SERIAL_PORT_IS_NULL(10030, "串口对象为空，监听失败"),

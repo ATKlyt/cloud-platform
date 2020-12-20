@@ -232,4 +232,17 @@
             </if>
         </trim>
     </insert>
+
+    <select id="selectUserByUserNumber" resultMap="BaseResultMap" parameterType="String">
+        select * from t_user where user_number=#{userName,jdbcType=VARCHAR}
+    </select>
+
+    <delete id="deleteUserByUserNumber" parameterType="String">
+        delete from t_user where user_number=#{userNumber,jdbcType=VARCHAR}
+    </delete>
+
+    <select id="selectNotSuperior" resultMap="BaseResultMap">
+        select * from t_user where user_id in (select t_user.user_id from t_user where t_user.user_id not in (select t_user_management.user_id from t_user_management))
+    </select>
+
 </mapper>

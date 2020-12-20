@@ -13,6 +13,7 @@
     <version>0.1.0-SNAPSHOT</version>
     <name>cloud-platform</name>
     <description>cloud-platform</description>
+    <packaging>jar</packaging>
 
     <properties>
         <java.version>1.8</java.version>

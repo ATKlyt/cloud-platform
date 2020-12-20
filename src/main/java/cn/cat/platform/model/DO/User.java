@@ -2,6 +2,9 @@ package cn.cat.platform.model.DO;
 
 import java.io.Serializable;
 import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.validation.constraints.NotNull;
 
@@ -10,7 +13,9 @@ import javax.validation.constraints.NotNull;
  * @createTime 2020/12/1 17:16
  * @description TODO
  */
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
 public class User implements Serializable {
     /**
     * 主键

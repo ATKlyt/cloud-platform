@@ -36,6 +36,8 @@ public interface UserService {
 
     boolean checkUserByUsername(String username);
 
+    boolean checkUserNumber(String userNumber);
+
     UserVO addUser(User user, Integer roleId, Integer superiorUserId);
 
     List<User> findRegionalAgentBriefInfo();
@@ -45,6 +47,17 @@ public interface UserService {
     int updateUserInfo(User user);
 
     User findSuperiorUserByUserId(Integer userId);
+
+    int deleteUserByUserNumber(String userNumber);
+
+    /**
+     * @Date         2020/12/20 14:51
+     * @Author       吴东龙
+     * @Description  查询没有指定区域商的用户
+     */
+    List<User> selectNotSuperior();
+
+
 }
 
 

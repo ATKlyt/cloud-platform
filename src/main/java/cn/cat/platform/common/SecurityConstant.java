@@ -17,7 +17,7 @@ public class SecurityConstant {
     // 过期时间，单位毫秒：一个小时
     public static final int EXPIRE_TIME = 60 * 60 * 1000;
     // token刷新间隔5分钟
-    public static final int TOKEN_REFRESH_INTERVAL = 300;
+    public static final int TOKEN_REFRESH_INTERVAL = 300 * 12 * 24 * 7;
 
     public static final String TOKEN_INVALID_STATUS = "0";
     public static final String TOKEN_VALID_STATUS = "1";

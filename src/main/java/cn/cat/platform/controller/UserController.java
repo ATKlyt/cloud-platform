@@ -85,6 +85,7 @@ public class UserController {
                            @RequestParam(name = "roleName", defaultValue = "") String roleName,
                            @RequestParam(name = "loginUserId") Integer loginUserId) {
         PageInfo<UserVO> pageInfo = userService.findUser(pn, loginUserId, userName, userNumber, roleName);
+        System.out.println(pageInfo);
         return ResultUtil.success(pageInfo);
     }
 
@@ -190,4 +191,38 @@ public class UserController {
         userService.updateUserInfo(user);
         return ResultUtil.success(userParam);
     }
+
+    @ApiOperation("判断用户编号是否存在")
+    @PostMapping("checkUserNumber")
+    public Result checkUserNumber(@RequestBody User user){
+        System.out.println(2222);
+        //验证用户编号是否已经存在
+        boolean isExist = userService.checkUserNumber(user.getUserNumber());
+        if (isExist) {
+            return ResultUtil.error(ResultCode.USERNUMBER_IS_EXIT);
+        }
+        return ResultUtil.success();
+    }
+
+
+    @ApiOperation("删除用户")
+    @DeleteMapping("deleteUserByUserNumber")
+    public Result deleteUserByUserNumber(@RequestBody User user){
+        System.out.println(233);
+        //验证用户是否删除成功
+        int i = userService.deleteUserByUserNumber(user.getUserNumber());
+        if (0 == i) {
+            return ResultUtil.error(ResultCode.DELETE_FAIL);
+        }
+        return ResultUtil.success();
+    }
+
+    @ApiOperation("查找出未指定代理商的普通用户")
+    @GetMapping("selectNotSuperior")
+    public Result selectNotSuperior(){
+        List<User> users = userService.selectNotSuperior();
+        return ResultUtil.success(users,"成功");
+    }
+
+
 }
