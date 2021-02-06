@@ -195,7 +195,6 @@ public class UserController {
     @ApiOperation("判断用户编号是否存在")
     @PostMapping("checkUserNumber")
     public Result checkUserNumber(@RequestBody User user){
-        System.out.println(2222);
         //验证用户编号是否已经存在
         boolean isExist = userService.checkUserNumber(user.getUserNumber());
         if (isExist) {
@@ -208,7 +207,6 @@ public class UserController {
     @ApiOperation("删除用户")
     @DeleteMapping("deleteUserByUserNumber")
     public Result deleteUserByUserNumber(@RequestBody User user){
-        System.out.println(233);
         //验证用户是否删除成功
         int i = userService.deleteUserByUserNumber(user.getUserNumber());
         if (0 == i) {
@@ -223,6 +221,23 @@ public class UserController {
         List<User> users = userService.selectNotSuperior();
         return ResultUtil.success(users,"成功");
     }
+
+    @ApiOperation("根据代理商id查找出代理商所管理的所有用户")
+    @GetMapping("selectUserInfoBySuperiorId")
+    public Result selectUserInfoBySuperiorId(Integer userId){
+        List<User> users = userService.selectUserInfoBySuperiorId(userId);
+        return ResultUtil.success(users,"成功");
+    }
+
+    @ApiOperation("根据id查找用户信息")
+    @GetMapping("selectUserinfoByUserId")
+    public Result selectUserinfoByUserId(Integer userId){
+        User user = userService.selectUserinfoByUserId(userId);
+        return ResultUtil.success(user,"成功");
+    }
+
+
+
 
 
 }

@@ -57,6 +57,20 @@ public interface UserService {
      */
     List<User> selectNotSuperior();
 
+    /**
+     * @Date         2021/2/6 12:50
+     * @Author       吴东龙
+     * @Description  根据代理商id查找用户信息
+     */
+    List<User> selectUserInfoBySuperiorId(Integer userId);
+
+    /**
+     * @Date         2021/2/6 14:55
+     * @Author       吴东龙
+     * @Description  根据userid查找用户信息
+     */
+    User selectUserinfoByUserId(Integer userId);
+
 
 }
 

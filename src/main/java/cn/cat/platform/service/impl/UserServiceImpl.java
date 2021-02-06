@@ -195,6 +195,22 @@ public class UserServiceImpl implements UserService {
         return users;
     }
 
+    @Override
+    public List<User> selectUserInfoBySuperiorId(Integer userId){
+        List<User> users = userMapper.selectUserInfoBySuperiorId(userId);
+        return users;
+    }
+
+    @Override
+    public User selectUserinfoByUserId(Integer userId){
+        User user = userMapper.selectUserinfoByUserId(userId);
+        return user;
+    }
+
+
+
+
+
 
 }
 

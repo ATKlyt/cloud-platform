@@ -19,6 +19,11 @@ public class UserBO {
     private String userNumber;
 
     /**
+     * 用户账号
+     */
+    private String username;
+
+    /**
      * 客户名称
      */
     private String name;

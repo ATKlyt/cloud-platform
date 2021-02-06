@@ -1,7 +1,7 @@
 server:
   port: 8800
-  servlet:
-    context-path: /cloud-platform
+#  servlet:
+#    context-path: /cloud-platform
 
 spring:
   datasource:

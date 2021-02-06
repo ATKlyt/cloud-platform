@@ -42,6 +42,10 @@ public interface UserMapper {
 
     List<User> selectNotSuperior();
 
+    List<User> selectUserInfoBySuperiorId(Integer userId);
+
+    User selectUserinfoByUserId(Integer userId);
+
 
 
 }
