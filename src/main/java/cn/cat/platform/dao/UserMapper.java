@@ -19,6 +19,7 @@ public interface UserMapper {
                                  @Param("userNumber") String userNumber,
                                  @Param("roleName") String roleName);
 
+
     List<UserBO> findUserVOBySuperiorUserId(@Param("userName") String userName,
                                             @Param("userNumber") String userNumber,
                                             @Param("roleName") String roleName,
@@ -42,7 +43,7 @@ public interface UserMapper {
 
     List<User> selectNotSuperior();
 
-    List<User> selectUserInfoBySuperiorId(Integer userId);
+    List<User> selectUserInfoBySuperiorId(@Param("userId") Integer userId,@Param("userName") String userName,@Param("userNumber") String userNumber);
 
     User selectUserinfoByUserId(Integer userId);
 

@@ -57,8 +57,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public PageInfo<UserVO> findUser(Integer pn, Integer loginUserId, String userName, String userNumber, String roleName) {
         List<UserBO> userBOS = new ArrayList<>(0);
+
         // 登录用户的角色id
         Integer loginUserRoleId = userRoleMapper.findRoleIdByUserId(loginUserId);
+        System.out.println(loginUserRoleId);
         if (loginUserRoleId.equals(Constant.ROLE_ID_ADMIN)) {
             // 厂家管理员
             PageHelper.startPage(pn, Constant.PAGE_SIZE);
@@ -66,6 +68,7 @@ public class UserServiceImpl implements UserService {
         } else if (loginUserRoleId.equals(Constant.ROLE_ID_REGIONAL_AGENT)) {
             // 区域代理啥
             PageHelper.startPage(pn, Constant.PAGE_SIZE);
+            System.out.println("身份是代理商");
             userBOS = userMapper.findUserVOBySuperiorUserId(userName, userNumber, roleName, loginUserId);
         }
         List<UserVO> userVOS = new ArrayList<>(userBOS.size());
@@ -196,9 +199,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> selectUserInfoBySuperiorId(Integer userId){
-        List<User> users = userMapper.selectUserInfoBySuperiorId(userId);
-        return users;
+    public PageInfo<User> selectUserInfoBySuperiorId(Integer userId,String userName,String userNumber,Integer currentPage){
+        PageHelper.startPage(currentPage, Constant.PAGE_SIZE);
+        System.out.println(userName);
+        System.out.println(userNumber);
+        List<User> users = userMapper.selectUserInfoBySuperiorId(userId,userName,userNumber);
+        PageInfo<User> userBOPageInfo = new PageInfo<>(users);
+        return userBOPageInfo;
     }
 
     @Override

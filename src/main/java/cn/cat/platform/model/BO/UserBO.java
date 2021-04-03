@@ -54,4 +54,9 @@ public class UserBO {
     private String reservedInfo;
 
     private String roleName;
+
+    /**
+     * 代理商id
+     */
+    private Integer superiorUserId;
 }

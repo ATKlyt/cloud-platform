@@ -114,7 +114,6 @@ public class DeviceDataParam {
      * 运行次数
      */
     @ApiModelProperty(name = "runNumber",value = "运行次数",required = true, example = "120")
-    @NotNull(message = "运行次数不能为空")
     private String runNumber;
 
     /**

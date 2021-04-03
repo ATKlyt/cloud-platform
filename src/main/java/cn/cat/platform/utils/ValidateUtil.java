@@ -6,7 +6,9 @@ import cn.cat.platform.enums.ResultCode;
 import cn.cat.platform.exception.BusinessException;
 import cn.cat.platform.model.DO.DeviceData;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -20,6 +22,34 @@ public class ValidateUtil {
             if (param == null || "".equals(param)) {
                 // 空白的
                 throw new BusinessException(ResultCode.PARAM_IS_BLANK);
+            }
+        }
+        return true;
+    }
+
+    /**
+     * 参数校验
+     */
+    public static boolean validate(Object... param){
+        for (Object obj : param) {
+            //字符串参数校验
+            if (obj instanceof String){
+                //等于null，去除首位空格符号
+                if ("".equals(((String) obj).trim())){
+                    return false;
+                }
+            }else if(obj instanceof List){
+                if (((List) obj).size() == 0){
+                    return false;
+                }
+            }else if(obj instanceof MultipartFile){
+                if (((MultipartFile) obj).isEmpty()){
+                    return false;
+                }
+            }else {
+                if (obj == null){
+                    return false;
+                }
             }
         }
         return true;

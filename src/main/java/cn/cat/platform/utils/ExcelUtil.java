@@ -194,6 +194,13 @@ public class ExcelUtil {
                             columnIndex--;
                         }
                         break;
+//                    case "reservedMessage":
+//                        if (value != null) {
+//                            cell.setCellValue(value.toString());
+//                        } else {
+//                            cell.setCellValue("--");
+//                        }
+//                        break;
                     default:
                         //填入数据
                         if (value != null) {

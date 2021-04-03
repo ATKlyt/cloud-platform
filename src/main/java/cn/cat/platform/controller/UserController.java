@@ -224,8 +224,9 @@ public class UserController {
 
     @ApiOperation("根据代理商id查找出代理商所管理的所有用户")
     @GetMapping("selectUserInfoBySuperiorId")
-    public Result selectUserInfoBySuperiorId(Integer userId){
-        List<User> users = userService.selectUserInfoBySuperiorId(userId);
+    public Result selectUserInfoBySuperiorId(Integer userId,String userName,String userNumber,Integer currentPage){
+
+        PageInfo<User> users = userService.selectUserInfoBySuperiorId(userId,userName,userNumber,currentPage);
         return ResultUtil.success(users,"成功");
     }
 

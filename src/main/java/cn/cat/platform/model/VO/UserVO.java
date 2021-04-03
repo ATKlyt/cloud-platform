@@ -65,4 +65,10 @@ public class UserVO {
     private List<String> reservedInfoList;
 
 
+    /**
+     * 代理商id
+     */
+    private Integer superiorUserId;
+
+
 }

@@ -62,7 +62,7 @@ public interface UserService {
      * @Author       吴东龙
      * @Description  根据代理商id查找用户信息
      */
-    List<User> selectUserInfoBySuperiorId(Integer userId);
+    PageInfo<User> selectUserInfoBySuperiorId(Integer userId,String userName,String userNumber,Integer currentPage);
 
     /**
      * @Date         2021/2/6 14:55

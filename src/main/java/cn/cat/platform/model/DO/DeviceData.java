@@ -163,5 +163,10 @@ public class DeviceData implements Serializable {
      */
     private String beatOutput;
 
+    /**
+     * 预留项
+     */
+    private String reservedMessage;
+
     private static final long serialVersionUID = 1L;
 }

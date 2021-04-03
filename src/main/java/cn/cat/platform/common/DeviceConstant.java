@@ -40,6 +40,20 @@ public class DeviceConstant {
     public static final String TEST_TYPE_VXXX = "VXXX";
     public static final String TEST_TYPE_MFR = "MFR";
     public static final String TEST_TYPE_ALL = "ALL";
+    public static final String TEST_TYPE_DPD = "DPD";
+    public static final String TEST_TYPE_DPR = "DPR";
+    public static final String TEST_TYPE_VDPD = "VDPD";
+    public static final String TEST_TYPE_VDPR = "VDPR";
+    public static final String TEST_TYPE_CDPD = "CDPD";
+    public static final String TEST_TYPE_CVDPD = "CVDPD";
+    public static final String TEST_TYPE_VPLR = "VPLR";
+    public static final String TEST_TYPE_VPDL = "VPDL";
+    public static final String TEST_TYPE_CVPDL = "CVPDL";
+    public static final String TEST_TYPE_VSFD = "VSFD";
+    public static final String TEST_TYPE_SPD = "SPD";
+    public static final String TEST_TYPE_SPR = "SPR";
+    public static final String TEST_TYPE_VSPD= "VSPD";
+    public static final String TEST_TYPE_VSPR= "VSPR";
 
 
     public static final String ATTRIBUTE_GROUP_ID_EN = "groupId";
@@ -65,6 +79,10 @@ public class DeviceConstant {
     public static final String ATTRIBUTE_LEAK_RATE_UNIT_CN = "泄漏率单位";
     public static final String ATTRIBUTE_FLOW_VALUE_CN = "流量值";
     public static final String ATTRIBUTE_FLOW_VALUE_UNIT_CN = "流量值单位";
+    public static final String ATTRIBUTE_SMALL_LEAK_CN = "小漏";
+    public static final String ATTRIBUTE_SMALL_LEAK_UNIT_CN = "小漏值单位";
+    public static final String ATTRIBUTE_BIG_LEAK_CN = "大漏";
+    public static final String ATTRIBUTE_BIG_LEAK_UNIT_CN = "大漏值单位";
 
 
     public static final String ATTRIBUTE_TEST_PRESSURE_EN = "testPressure";
@@ -79,7 +97,11 @@ public class DeviceConstant {
     public static final String ATTRIBUTE_LEAK_RATE_UNIT_EN = "leakRateUnit";
     public static final String ATTRIBUTE_FLOW_VALUE_EN = "flowValue";
     public static final String ATTRIBUTE_FLOW_VALUE_UNIT_EN = "flowValueUnit";
-
+    public static final String ATTRIBUTE_SMALL_LEAK_EN = "smallLeak";
+    public static final String ATTRIBUTE_SMALL_LEAK_UNIT_EN = "smallLeakUnit";
+    public static final String ATTRIBUTE_BIG_LEAK_EN = "bigLeak";
+    public static final String ATTRIBUTE_BIG_LEAK_UNIT_EN = "bigLeakUnit";
+    
     public static final String ATTRIBUTE_DATA_ITEM_1_CN = "数据项1";
     public static final String ATTRIBUTE_DATA_ITEM_1_UNIT_CN = "数据项1单位";
     public static final String ATTRIBUTE_DATA_ITEM_2_CN = "数据项2";
@@ -103,4 +125,6 @@ public class DeviceConstant {
     public static final String ATTRIBUTE_TESTED_BAR_CODE_CN = "被测试条码";
     public static final String ATTRIBUTE_BEAT_OUTPUT_EN = "beatOutput";
     public static final String ATTRIBUTE_BEAT_OUTPUT_CN = "节拍输出";
+    public static final String ATTRIBUTE_RESERVERD_MESSAGE_CN = "预留项";
+    public static final String ATTRIBUTE_RESERVERD_MESSAGE_EN = "reservedMessage";
 }

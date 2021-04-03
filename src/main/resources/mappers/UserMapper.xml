@@ -28,6 +28,8 @@
         <result column="address" jdbcType="VARCHAR" property="address"/>
         <result column="reserved_info" jdbcType="VARCHAR" property="reservedInfo"/>
         <result column="role_name" jdbcType="VARCHAR" property="roleName"/>
+        <result column="superior_user_id" jdbcType="INTEGER" property="superiorUserId"/>
+<!--        <result -->
     </resultMap>
 
     <sql id="Base_Column_List">
@@ -65,28 +67,30 @@
 
 
     <select id="adminFindUserVO" resultMap="UserBOResultMap">
-        select t_user.user_id,
-               t_user.user_number,
-               t_user.name,
-               t_user.contact_info,
-               t_user.contact_person,
-               t_user.message,
-               t_user.address,
-               t_user.reserved_info,
-               t_user.username,
-               t_role.role_name,
-               t_user_management.superior_user_id
-        from t_user,
-             t_role,
-             t_user_role,
-             t_user_management
-        where t_user.user_id = t_user_role.user_id
-          and t_role.role_id = t_user_role.role_id
-          and t_role.role_id != 1
-          and t_role.role_name like concat("%", #{roleName,jdbcType=VARCHAR}, "%")
-          and t_user.name like concat("%", #{userName,jdbcType=VARCHAR}, "%")
-          and t_user.user_number like concat("%", #{userNumber,jdbcType=VARCHAR}, "%")
-          and t_user.user_id = t_user_management.user_id
+        SELECT
+				 se.user_id,
+				 se.user_number,
+				 se.name,
+				 se.contact_info,
+				 se.contact_person,
+				 se.message,
+				 se.address,
+				 se.reserved_info,
+				 se.username,
+				 role.role_name,
+				 um.superior_user_id
+        from t_user se
+				LEFT JOIN t_user_role ur ON se.user_id = ur.user_id
+				LEFT JOIN t_role role ON role.role_id = ur.role_id
+				LEFT JOIN t_user_management um ON se.user_id = um.user_id
+        where
+              se.user_id = ur.user_id
+              and role.role_id = ur.role_id
+              and role.role_id != 1
+              and role.role_name like concat("%", #{roleName,jdbcType=VARCHAR}, "%")
+              and se.name like concat("%", #{userName,jdbcType=VARCHAR}, "%")
+              and se.user_number like concat("%", #{userNumber,jdbcType=VARCHAR}, "%")
+        ORDER BY se.user_id
     </select>
 
     <select id="findUserVOBySuperiorUserId" resultMap="UserBOResultMap">
@@ -111,6 +115,7 @@
           and t_user.user_number like concat("%", #{userNumber,jdbcType=VARCHAR}, "%")
           and t_user_management.superior_user_id = #{loginUserId,jdbcType=INTEGER}
           and t_user_management.user_id = t_user.user_id
+        order by t_user.user_id
     </select>
 
 
@@ -252,7 +257,7 @@
         select * from t_user where user_id in (select t_user.user_id from t_user where t_user.user_id not in (select t_user_management.user_id from t_user_management))
     </select>
 
-    <select id="selectUserInfoBySuperiorId" resultMap="BaseResultMap" parameterType="Integer">
+    <select id="selectUserInfoBySuperiorId" resultMap="BaseResultMap" >
     SELECT
         user.user_id,
         user.user_number,
@@ -265,10 +270,12 @@
         user.reserved_info
     FROM
         t_user user
-    WHERE user.user_id IN
-    (
-        SELECT management.user_id FROM t_user_management management WHERE management.superior_user_id = #{userId,jdbcType=INTEGER}
-    )
+		LEFT JOIN t_user_management management ON user.user_id = management.user_id
+		WHERE
+			management.superior_user_id = #{userId,jdbcType=INTEGER}
+          and user.name like concat("%", #{userName,jdbcType=VARCHAR}, "%")
+          and user.user_number like concat("%", #{userNumber,jdbcType=VARCHAR}, "%")
+    order by user.user_id
     </select>
 
     <select id="selectUserinfoByUserId" parameterType="Integer" resultMap="BaseResultMap">

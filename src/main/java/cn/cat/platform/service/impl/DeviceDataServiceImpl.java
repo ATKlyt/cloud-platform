@@ -88,7 +88,7 @@ public class DeviceDataServiceImpl implements DeviceDataService {
 
     private List<Header> getDataItemHeaders(String testMode) {
         List<Header> dataItemHeaders = new ArrayList<>();
-        if (DeviceConstant.TEST_TYPE_PLR.equals(testMode)) {
+        if (DeviceConstant.TEST_TYPE_PLR.equals(testMode) || DeviceConstant.TEST_TYPE_VPLR.equals(testMode)) {
             //"压降", "压降单位", "泄漏率", "泄漏率单位", "测试压", "测试压单位"
             Collections.addAll(dataItemHeaders,
                     new Header(DeviceConstant.ATTRIBUTE_PRESSURE_DROP_CN, DeviceConstant.ATTRIBUTE_DATA_ITEM_1_EN),
@@ -97,14 +97,17 @@ public class DeviceDataServiceImpl implements DeviceDataService {
                     new Header(DeviceConstant.ATTRIBUTE_LEAK_RATE_UNIT_CN, DeviceConstant.ATTRIBUTE_DATA_ITEM_2_UNIT_EN),
                     new Header(DeviceConstant.ATTRIBUTE_TEST_PRESSURE_CN, DeviceConstant.ATTRIBUTE_DATA_ITEM_3_EN),
                     new Header(DeviceConstant.ATTRIBUTE_TEST_PRESSURE_UNIT_CN, DeviceConstant.ATTRIBUTE_DATA_ITEM_3_UNIT_EN));
-        } else if (DeviceConstant.TEST_TYPE_PDL.equals(testMode)) {
-            //"测试压", "测试压单位", "压降", "压降单位"
+        } else if (DeviceConstant.TEST_TYPE_PDL.equals(testMode) || DeviceConstant.TEST_TYPE_VPDL.equals(testMode)) {
+            // "压降", "压降单位","数据项2","数据项2单位","测试压", "测试压单位"
             Collections.addAll(dataItemHeaders,
-                    new Header(DeviceConstant.ATTRIBUTE_TEST_PRESSURE_CN, DeviceConstant.ATTRIBUTE_DATA_ITEM_1_EN),
-                    new Header(DeviceConstant.ATTRIBUTE_TEST_PRESSURE_UNIT_CN, DeviceConstant.ATTRIBUTE_DATA_ITEM_1_UNIT_EN),
                     new Header(DeviceConstant.ATTRIBUTE_PRESSURE_DROP_CN, DeviceConstant.ATTRIBUTE_DATA_ITEM_2_EN),
-                    new Header(DeviceConstant.ATTRIBUTE_PRESSURE_DROP_UNIT_CN, DeviceConstant.ATTRIBUTE_DATA_ITEM_2_UNIT_EN));
-        } else if (DeviceConstant.TEST_TYPE_CPDL.equals(testMode)) {
+                    new Header(DeviceConstant.ATTRIBUTE_PRESSURE_DROP_UNIT_CN, DeviceConstant.ATTRIBUTE_DATA_ITEM_2_UNIT_EN),
+                    new Header(DeviceConstant.ATTRIBUTE_DATA_ITEM_2_CN, DeviceConstant.ATTRIBUTE_DATA_ITEM_2_EN),
+                    new Header(DeviceConstant.ATTRIBUTE_DATA_ITEM_2_UNIT_CN, DeviceConstant.ATTRIBUTE_DATA_ITEM_2_UNIT_EN),
+                    new Header(DeviceConstant.ATTRIBUTE_TEST_PRESSURE_CN, DeviceConstant.ATTRIBUTE_DATA_ITEM_1_EN),
+                    new Header(DeviceConstant.ATTRIBUTE_TEST_PRESSURE_UNIT_CN, DeviceConstant.ATTRIBUTE_DATA_ITEM_1_UNIT_EN)
+                    );
+        } else if (DeviceConstant.TEST_TYPE_CPDL.equals(testMode) || DeviceConstant.TEST_TYPE_CDPD.equals(testMode) || DeviceConstant.TEST_TYPE_CVPDL.equals(testMode)) {
             //"压降", "压降单位", "补偿后压降", "补偿后压降单位", "测试压", "测试压单位"
             Collections.addAll(dataItemHeaders,
                     new Header(DeviceConstant.ATTRIBUTE_PRESSURE_DROP_CN, DeviceConstant.ATTRIBUTE_DATA_ITEM_1_EN),
@@ -139,7 +142,40 @@ public class DeviceDataServiceImpl implements DeviceDataService {
                     new Header(DeviceConstant.ATTRIBUTE_DATA_ITEM_2_UNIT_CN, DeviceConstant.ATTRIBUTE_DATA_ITEM_2_UNIT_EN),
                     new Header(DeviceConstant.ATTRIBUTE_DATA_ITEM_3_CN, DeviceConstant.ATTRIBUTE_DATA_ITEM_3_EN),
                     new Header(DeviceConstant.ATTRIBUTE_DATA_ITEM_3_UNIT_CN, DeviceConstant.ATTRIBUTE_DATA_ITEM_3_UNIT_EN));
+        } else if (DeviceConstant.TEST_TYPE_DPD.equals(testMode) || DeviceConstant.TEST_TYPE_VDPD.equals(testMode)) {
+            //"压降", "压降单位","数据项2","数据项2单位","测试压", "测试压单位"
+            Collections.addAll(dataItemHeaders,
+                    new Header(DeviceConstant.ATTRIBUTE_PRESSURE_DROP_CN, DeviceConstant.ATTRIBUTE_DATA_ITEM_2_EN),
+                    new Header(DeviceConstant.ATTRIBUTE_PRESSURE_DROP_UNIT_CN, DeviceConstant.ATTRIBUTE_DATA_ITEM_2_UNIT_EN),
+                    new Header(DeviceConstant.ATTRIBUTE_DATA_ITEM_2_CN, DeviceConstant.ATTRIBUTE_DATA_ITEM_2_EN),
+                    new Header(DeviceConstant.ATTRIBUTE_DATA_ITEM_2_UNIT_CN, DeviceConstant.ATTRIBUTE_DATA_ITEM_2_UNIT_EN),
+                    new Header(DeviceConstant.ATTRIBUTE_TEST_PRESSURE_CN, DeviceConstant.ATTRIBUTE_DATA_ITEM_1_EN),
+                    new Header(DeviceConstant.ATTRIBUTE_TEST_PRESSURE_UNIT_CN, DeviceConstant.ATTRIBUTE_DATA_ITEM_1_UNIT_EN));
+        } else if (DeviceConstant.TEST_TYPE_DPR.equals(testMode) || DeviceConstant.TEST_TYPE_VDPR.equals(testMode) || DeviceConstant.TEST_TYPE_CVDPD.equals(testMode)) {
+            //"压降", "压降单位","泄漏率", "泄漏率单位","测试压", "测试压单位"
+            Collections.addAll(dataItemHeaders,
+                    new Header(DeviceConstant.ATTRIBUTE_PRESSURE_DROP_CN, DeviceConstant.ATTRIBUTE_DATA_ITEM_2_EN),
+                    new Header(DeviceConstant.ATTRIBUTE_PRESSURE_DROP_UNIT_CN, DeviceConstant.ATTRIBUTE_DATA_ITEM_2_UNIT_EN),
+                    new Header(DeviceConstant.ATTRIBUTE_LEAK_RATE_CN, DeviceConstant.ATTRIBUTE_DATA_ITEM_2_EN),
+                    new Header(DeviceConstant.ATTRIBUTE_LEAK_RATE_UNIT_CN, DeviceConstant.ATTRIBUTE_DATA_ITEM_2_UNIT_EN),
+                    new Header(DeviceConstant.ATTRIBUTE_TEST_PRESSURE_CN, DeviceConstant.ATTRIBUTE_DATA_ITEM_1_EN),
+                    new Header(DeviceConstant.ATTRIBUTE_TEST_PRESSURE_UNIT_CN, DeviceConstant.ATTRIBUTE_DATA_ITEM_1_UNIT_EN));
+        }else if (DeviceConstant.TEST_TYPE_VSFD.equals(testMode)
+               || DeviceConstant.TEST_TYPE_SPD.equals(testMode)
+               || DeviceConstant.TEST_TYPE_SPR.equals(testMode)
+               || DeviceConstant.TEST_TYPE_VSPD.equals(testMode)
+               || DeviceConstant.TEST_TYPE_VSPR.equals(testMode)) {
+            //"小漏", "小漏单位","大漏", "大漏单位","测试压", "测试压单位"
+            Collections.addAll(dataItemHeaders,
+                    new Header(DeviceConstant.ATTRIBUTE_SMALL_LEAK_CN, DeviceConstant.ATTRIBUTE_SMALL_LEAK_CN),
+                    new Header(DeviceConstant.ATTRIBUTE_SMALL_LEAK_UNIT_CN, DeviceConstant.ATTRIBUTE_SMALL_LEAK_UNIT_EN),
+                    new Header(DeviceConstant.ATTRIBUTE_BIG_LEAK_CN, DeviceConstant.ATTRIBUTE_BIG_LEAK_EN),
+                    new Header(DeviceConstant.ATTRIBUTE_BIG_LEAK_UNIT_CN, DeviceConstant.ATTRIBUTE_BIG_LEAK_UNIT_EN),
+                    new Header(DeviceConstant.ATTRIBUTE_TEST_PRESSURE_CN, DeviceConstant.ATTRIBUTE_DATA_ITEM_1_EN),
+                    new Header(DeviceConstant.ATTRIBUTE_TEST_PRESSURE_UNIT_CN, DeviceConstant.ATTRIBUTE_DATA_ITEM_1_UNIT_EN));
         }
+
+
         return dataItemHeaders;
     }
 
@@ -154,11 +190,11 @@ public class DeviceDataServiceImpl implements DeviceDataService {
                 new Header(DeviceConstant.ATTRIBUTE_TIME_CN, DeviceConstant.ATTRIBUTE_TIME_EN),
                 new Header(DeviceConstant.ATTRIBUTE_RESULT_JUDGMENT_CN, DeviceConstant.ATTRIBUTE_RESULT_JUDGMENT_EN),
                 new Header(DeviceConstant.ATTRIBUTE_TEST_MODE_CN, DeviceConstant.ATTRIBUTE_TEST_MODE_EN));
-
         Collections.addAll(headers,
                 new Header(DeviceConstant.ATTRIBUTE_RUN_NUMBER_CN, DeviceConstant.ATTRIBUTE_RUN_NUMBER_EN),
                 new Header(DeviceConstant.ATTRIBUTE_TESTED_BAR_CODE_CN, DeviceConstant.ATTRIBUTE_TESTED_BAR_CODE_EN),
-                new Header(DeviceConstant.ATTRIBUTE_BEAT_OUTPUT_CN, DeviceConstant.ATTRIBUTE_BEAT_OUTPUT_EN)
+                new Header(DeviceConstant.ATTRIBUTE_BEAT_OUTPUT_CN, DeviceConstant.ATTRIBUTE_BEAT_OUTPUT_EN),
+                new Header(DeviceConstant.ATTRIBUTE_RESERVERD_MESSAGE_CN, DeviceConstant.ATTRIBUTE_RESERVERD_MESSAGE_EN)
         );
         return headers;
     }
@@ -278,6 +314,20 @@ public class DeviceDataServiceImpl implements DeviceDataService {
         testModes.add(DeviceConstant.TEST_TYPE_OCC);
         testModes.add(DeviceConstant.TEST_TYPE_VXXX);
         testModes.add(DeviceConstant.TEST_TYPE_MFR);
+        testModes.add(DeviceConstant.TEST_TYPE_DPD);
+        testModes.add(DeviceConstant.TEST_TYPE_DPR);
+        testModes.add(DeviceConstant.TEST_TYPE_VDPD);
+        testModes.add(DeviceConstant.TEST_TYPE_VDPR);
+        testModes.add(DeviceConstant.TEST_TYPE_CDPD);
+        testModes.add(DeviceConstant.TEST_TYPE_CVDPD);
+        testModes.add(DeviceConstant.TEST_TYPE_VPLR);
+        testModes.add(DeviceConstant.TEST_TYPE_VPDL);
+        testModes.add(DeviceConstant.TEST_TYPE_CVPDL);
+        testModes.add(DeviceConstant.TEST_TYPE_VSFD);
+        testModes.add(DeviceConstant.TEST_TYPE_SPD);
+        testModes.add(DeviceConstant.TEST_TYPE_SPR);
+        testModes.add(DeviceConstant.TEST_TYPE_VSPD);
+        testModes.add(DeviceConstant.TEST_TYPE_VSPR);
         testModes.add(DeviceConstant.TEST_TYPE_ALL);
         return testModes;
     }
@@ -307,7 +357,8 @@ public class DeviceDataServiceImpl implements DeviceDataService {
         Collections.addAll(headers,
                 new Header(DeviceConstant.ATTRIBUTE_RUN_NUMBER_CN, DeviceConstant.ATTRIBUTE_RUN_NUMBER_EN),
                 new Header(DeviceConstant.ATTRIBUTE_TESTED_BAR_CODE_CN, DeviceConstant.ATTRIBUTE_TESTED_BAR_CODE_EN),
-                new Header(DeviceConstant.ATTRIBUTE_BEAT_OUTPUT_CN, DeviceConstant.ATTRIBUTE_BEAT_OUTPUT_EN)
+                new Header(DeviceConstant.ATTRIBUTE_BEAT_OUTPUT_CN, DeviceConstant.ATTRIBUTE_BEAT_OUTPUT_EN),
+                new Header(DeviceConstant.ATTRIBUTE_RESERVERD_MESSAGE_CN, DeviceConstant.ATTRIBUTE_RESERVERD_MESSAGE_EN)
         );
         return headers;
     }
@@ -318,19 +369,23 @@ public class DeviceDataServiceImpl implements DeviceDataService {
         Map<String, Object> data = new HashMap<>(16);
 
         // 获取全部字段，缺省值为"--"
+        // 获取公共表头
         List<Header> headers = getSimpleHeaders();
-        // 删除三个
+        // 删除四个
+        headers.remove(headers.size() - 1);
         headers.remove(headers.size() - 1);
         headers.remove(headers.size() - 1);
         headers.remove(headers.size() - 1);
 
+        // 根据测试模式获取不同测试模式的特定信息
         List<Header> dataItemHeaders = getDataItemHeaders(testMode);
         headers.addAll(dataItemHeaders);
         // 调整顺序
         Collections.addAll(headers,
                 new Header(DeviceConstant.ATTRIBUTE_RUN_NUMBER_CN, DeviceConstant.ATTRIBUTE_RUN_NUMBER_EN),
                 new Header(DeviceConstant.ATTRIBUTE_TESTED_BAR_CODE_CN, DeviceConstant.ATTRIBUTE_TESTED_BAR_CODE_EN),
-                new Header(DeviceConstant.ATTRIBUTE_BEAT_OUTPUT_CN, DeviceConstant.ATTRIBUTE_BEAT_OUTPUT_EN)
+                new Header(DeviceConstant.ATTRIBUTE_BEAT_OUTPUT_CN, DeviceConstant.ATTRIBUTE_BEAT_OUTPUT_EN),
+                new Header(DeviceConstant.ATTRIBUTE_RESERVERD_MESSAGE_CN, DeviceConstant.ATTRIBUTE_RESERVERD_MESSAGE_EN)
         );
 
         //分页查询
